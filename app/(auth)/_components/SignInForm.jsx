@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 
-import { useAuth } from '@/app/_providers/auth-provider';
+import { useAuth } from '../auth-provider';
 
 import { Button } from '@/components/ui/button';
 import {

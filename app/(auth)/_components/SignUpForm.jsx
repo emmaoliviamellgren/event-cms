@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { MdErrorOutline } from 'react-icons/md';
 import { z } from 'zod';
 
-import { useAuth } from '@/app/_providers/auth-provider';
+import { useAuth } from '../auth-provider';
 import { addNewUser } from '@/lib/user.db';
 
 import { Button } from '@/components/ui/button';
