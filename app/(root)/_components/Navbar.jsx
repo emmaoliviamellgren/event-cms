@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/app/(auth)/auth-provider';
+import { useAuth } from '@/app/(auth)/AuthProvider';
 
 const Navbar = () => {
     const { handleSignOut, user } = useAuth();

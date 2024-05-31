@@ -12,7 +12,7 @@ import { MdPersonAddAlt1 } from 'react-icons/md';
 import { X, Check, Users } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-import { useAuth } from '@/app/(auth)/auth-provider';
+import { useAuth } from '@/app/(auth)/AuthProvider';
 
 import { Button } from '@/components/ui/button';
 import {
