@@ -10,7 +10,7 @@ export const EventCard = ({ event }) => {
         event;
 
     // Check if event is fully booked
-    const eventIsFull = event?.bookedUsers?.length === event?.numberOfSpots;
+    const eventIsFull = event?.bookedUsers?.length === Number(event?.numberOfSpots);
 
     return (
         <div

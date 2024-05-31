@@ -47,7 +47,7 @@ const EventPage = () => {
     const bookedByUsers = event?.bookedUsers ? event.bookedUsers : [];
 
     // Check if event is fully booked
-    const eventIsFull = event?.bookedUsers?.length === event?.numberOfSpots;
+    const eventIsFull = event?.bookedUsers?.length === Number(event?.numberOfSpots);
 
     // Check if user has booked the event by comaparing user id with booked users
     const bookedByCurrentUser = event?.bookedUsers?.some(
