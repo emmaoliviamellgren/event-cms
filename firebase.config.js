@@ -13,7 +13,23 @@ const firebaseConfig = {
     appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const app = getApps().length
+    ? getApp()
+    : initializeApp(firebaseConfig);
+    
+/*=============================================
+=    Avkommentera koden nedan vid testning
+=    och kommentera bort koden ovan, annars får
+=    du error api-key/invalid.
+=============================================*/
+
+// const app = getApps().length
+//     ? getApp()
+//     : initializeApp({
+//           projectId: 'test',
+//           appId: 'test',
+//           apiKey: 'test',
+//       })
 
 const db = getFirestore(app);
 const auth = getAuth(app);
