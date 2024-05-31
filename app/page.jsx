@@ -11,7 +11,7 @@ import Footer from './(root)/_components/Footer';
 // API
 import { getAllEvents } from '@/lib/handleEventsAPI';
 
-const LandingPage = () => {
+const HomePage = () => {
     const [locationSorted, setLocationSorted] = useState(false);
     const [dateSorted, setDateSorted] = useState(false);
 
@@ -134,4 +134,4 @@ const LandingPage = () => {
     );
 };
 
-export default LandingPage;
+export default HomePage;

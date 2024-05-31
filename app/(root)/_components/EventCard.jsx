@@ -4,27 +4,26 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export const EventCard = ({ event }) => {
+    const router = useRouter();
+
     const { name, location, date, image, bookedUsers, numberOfSpots, id } =
         event;
 
-    const router = useRouter();
-
-    const numberOfBookedUsers = bookedUsers ? bookedUsers.length : 0;
-
-    const isMaxUsers = Number(numberOfBookedUsers) === Number(numberOfSpots);
+    // Check if event is fully booked
+    const eventIsFull = event?.bookedUsers?.length === event?.numberOfSpots;
 
     return (
         <div
             onClick={() => router.push(`/${id}`)}
             className={`p-6 rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer m-5 max-w-96 w-full sm:w-[370px] h-[360px] sm:h-auto flex flex-col border border-input bg-background hover:text-accent-foreground ${
-                isMaxUsers ? 'opacity-70' : 'hover:bg-accent'
+                eventIsFull ? 'opacity-70' : 'hover:bg-accent'
             }`}>
             <div className='justify-center text-left leading-0'>
                 <div className='flex flex-col mb-2'>
                     <p className='text-lg m-0 w-fit bg-tertiary font-semibold text-primary'>
                         {name}
                     </p>
-                    {isMaxUsers && (
+                    {eventIsFull && (
                         <p className='text-lg px-2 text-white font-semibold bg-red-700 w-fit'>
                             Sold out
                         </p>
@@ -50,8 +49,8 @@ export const EventCard = ({ event }) => {
                         {date}
                     </span>
                     <span>
-                        <span className='font-semibold'>Booked: </span>
-                        {numberOfBookedUsers}/{numberOfSpots}
+                        <span className='font-semibold'>Spots left: </span>
+                        {numberOfSpots - bookedUsers?.length}
                     </span>
                 </div>
             </div>

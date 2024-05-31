@@ -43,31 +43,27 @@ const EventPage = () => {
         fetchEvent();
     }, [id]);
 
-    // Check event booking status
-    const currentlyBookedUsers =
-        event && event.bookedUsers ? event.bookedUsers : [];
+    // Users that have booked the event
+    const bookedByUsers = event?.bookedUsers ? event.bookedUsers : [];
 
-    const numberOfBookedUsers =
-        event && event.bookedUsers ? event.bookedUsers.length : 0;
+    // Check if event is fully booked
+    const eventIsFull = event?.bookedUsers?.length === event?.numberOfSpots;
 
-    const isMaxUsers =
-        event && Number(numberOfBookedUsers) === Number(event.numberOfSpots);
-
-    const hasBooked =
-        event &&
-        event.bookedUsers &&
-        event.bookedUsers.some((u) => u.id === user?.uid);
+    // Check if user has booked the event by comaparing user id with booked users
+    const bookedByCurrentUser = event?.bookedUsers?.some(
+        (users) => users.id === user?.uid
+    );
 
     // Handle booking by current user
     const handleBooking = () => {
         //Unbook user if user has booked event
-        if (hasBooked) {
+        if (bookedByCurrentUser) {
             handleBookings(user?.uid, id, user?.email)
                 .then((response) => {
                     if (response.message === 'Booking removed') {
                         setEvent((prevState) => ({
                             ...prevState,
-                            bookedUsers: currentlyBookedUsers.filter(
+                            bookedUsers: bookedByUsers.filter(
                                 (x) => x.id !== user?.uid
                             ),
                         }));
@@ -85,7 +81,7 @@ const EventPage = () => {
                         setEvent((prevState) => ({
                             ...prevState,
                             bookedUsers: [
-                                ...currentlyBookedUsers,
+                                ...bookedByUsers,
                                 {
                                     id: user?.uid,
                                     email: user?.email,
@@ -151,7 +147,8 @@ const EventPage = () => {
                                             <p className='text-sm font-medium leading-none'>
                                                 <span className='font-bold'>
                                                     {event.numberOfSpots -
-                                                        numberOfBookedUsers}
+                                                        event?.bookedUsers
+                                                            ?.length}
                                                 </span>
                                                 <span className='ml-1'>
                                                     spots left
@@ -190,13 +187,14 @@ const EventPage = () => {
                             <CardFooter>
                                 <Button
                                     variant={
-                                        (isMaxUsers && !hasBooked) || !user
+                                        (eventIsFull && !bookedByCurrentUser) ||
+                                        !user
                                             ? 'disabled'
                                             : 'default'
                                     }
                                     onClick={handleBooking}
                                     className='w-full'>
-                                    {hasBooked ? (
+                                    {bookedByCurrentUser ? (
                                         <span className='flex gap-2 items-center'>
                                             <X className='mr-2 h-4 w-4' /> Undo
                                             booking
